@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jacob Joshua E. Edejer</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -15,6 +17,8 @@
       --muted:  #555;
       --gold:   #c9a84c;
       --gold2:  #e6c97a;
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-serif: 'Playfair Display', Georgia, serif;
     }
 
     html { scroll-behavior: smooth; }
@@ -22,7 +26,7 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-family: var(--font-sans);
       font-size: 15px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
@@ -85,12 +89,26 @@
     #hero {
       min-height: 100vh;
       display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 60px;
-      padding-top: 160px;
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+      gap: 80px;
+      padding-top: 100px;
+      padding-left: 56px;
+      padding-right: 56px;
+      max-width: 100%;
+      margin: 0;
     }
-    .hero-left { }
+    .hero-left { 
+      order: 1;
+    }
+    .hero-right-col {
+      order: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+    }
     .hero-tag {
       display: inline-flex; align-items: center; gap: 8px;
       font-size: .72rem; color: var(--muted);
@@ -107,8 +125,9 @@
       font-weight: 900; line-height: 1.08;
       letter-spacing: -2px; margin-bottom: 10px;
       opacity: 0; animation: fadeUp .6s .35s forwards;
+      font-family: var(--font-sans);
     }
-    .hero-name .gold { color: var(--gold); }
+    .hero-name .gold { color: var(--gold); font-family: var(--font-serif); font-style: italic; }
     .hero-subtitle {
       font-size: clamp(1rem, 2.5vw, 1.4rem);
       color: var(--muted); font-weight: 300;
@@ -152,33 +171,82 @@
     /* ── PHOTO ── */
     .hero-photo {
       opacity: 0; animation: fadeIn .8s .9s forwards;
-      position: relative; flex-shrink: 0;
+      position: relative; 
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
     }
     .hero-photo img {
-      width: 220px; height: 260px;
-      object-fit: cover; object-position: top;
-      border-radius: 16px;
-      border: 1px solid var(--border);
+      width: 420px;
+      height: 520px;
+      object-fit: cover; 
+      object-position: center 20%;
+      border-radius: 0;
+      border: none;
       display: block;
-      filter: grayscale(20%);
+      filter: grayscale(70%) contrast(1.2);
       transition: filter .3s;
+      position: relative;
     }
-    .hero-photo img:hover { filter: grayscale(0%); }
+    .hero-photo img:hover { filter: grayscale(40%) contrast(1.1); }
+    /* Halftone overlay */
     .hero-photo::before {
       content: '';
-      position: absolute; inset: -8px;
-      border: 1px solid var(--gold);
-      border-radius: 20px; opacity: .25;
-      animation: pulse 3s infinite;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 420px;
+      height: 520px;
+      background-image: radial-gradient(circle, transparent 25%, rgba(0,0,0,0.5) 28%);
+      background-size: 4px 4px;
+      pointer-events: none;
+      z-index: 1;
     }
-    .hero-photo::after {
-      content: '';
-      position: absolute; bottom: -16px; right: -16px;
-      width: 80px; height: 80px;
-      border-right: 1px solid var(--gold);
-      border-bottom: 1px solid var(--gold);
-      border-radius: 0 0 12px 0;
-      opacity: .3;
+
+    /* ── SOCIAL FOLLOW ── */
+    .social-follow {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      margin-top: 40px;
+    }
+    .social-label {
+      font-size: .62rem;
+      letter-spacing: 2.5px;
+      color: var(--muted);
+      margin-bottom: 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .social-icons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+    }
+    .social-icon {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      background: transparent;
+      border: 1.5px solid var(--border);
+      border-radius: 50%;
+      transition: all .3s;
+    }
+    .social-icon:hover {
+      color: var(--gold);
+      border-color: var(--gold);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(201,168,76,.3);
+      background: rgba(201,168,76,.05);
+    }
+    .social-icon svg {
+      width: 20px;
+      height: 20px;
     }
 
     /* ── STATS ── */
@@ -214,8 +282,9 @@
       font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 900; letter-spacing: -1.5px;
       line-height: 1.1; margin-bottom: 56px;
+      font-family: var(--font-sans);
     }
-    .sec-title .dim { color: var(--muted); font-weight: 300; }
+    .sec-title .dim { color: var(--muted); font-weight: 300; font-family: var(--font-serif); font-style: italic; }
 
     /* ── SCROLL REVEAL ── */
     .reveal {
@@ -297,27 +366,80 @@
     }
 
     /* ── SKILLS ── */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 10px;
+    .skills-section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900; letter-spacing: -1.5px;
+      line-height: 1.1; margin-bottom: 56px;
+      font-family: var(--font-sans);
     }
+    .skills-section-title .dim {
+      color: var(--muted); font-weight: 300;
+      font-family: var(--font-serif); font-style: italic;
+    }
+
+    /* Marquee track */
+    .marquee-wrap {
+      overflow: hidden;
+      position: relative;
+      margin: 0 -56px;
+      padding: 10px 0;
+    }
+    .marquee-wrap::before,
+    .marquee-wrap::after {
+      content: ''; position: absolute; top: 0; bottom: 0;
+      width: 120px; z-index: 2; pointer-events: none;
+    }
+    .marquee-wrap::before { left: 0; background: linear-gradient(90deg, var(--bg), transparent); }
+    .marquee-wrap::after  { right: 0; background: linear-gradient(-90deg, var(--bg), transparent); }
+
+    .marquee-track {
+      display: flex; gap: 14px;
+      width: max-content;
+      animation: marquee 28s linear infinite;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+    .marquee-track-reverse {
+      animation: marqueeReverse 32s linear infinite;
+    }
+    .marquee-track-reverse:hover { animation-play-state: paused; }
+
+    .marquee-row { margin-bottom: 14px; }
+
     .skill-chip {
-      border: 1px solid var(--border); border-radius: 10px;
-      padding: 16px; transition: all .25s; cursor: default;
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 16px 22px; transition: all .3s cubic-bezier(.4,0,.2,1);
+      cursor: default; position: relative;
+      background: var(--bg2); flex-shrink: 0;
+      display: flex; align-items: center; gap: 12px;
+      white-space: nowrap;
+    }
+    .skill-chip::before {
+      content: ''; position: absolute; inset: 0;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(201,168,76,.08), transparent);
+      opacity: 0; transition: opacity .3s;
     }
     .skill-chip:hover {
       border-color: var(--gold);
-      background: rgba(201,168,76,.04);
-      transform: translateY(-3px);
+      transform: translateY(-6px);
+      box-shadow: 0 12px 32px rgba(201,168,76,.15), 0 4px 12px rgba(0,0,0,.4);
     }
-    .sk-cat {
-      font-size: .58rem; color: #333;
-      text-transform: uppercase; letter-spacing: 1.5px;
-      margin-bottom: 5px; display: block;
+    .skill-chip:hover::before { opacity: 1; }
+    .sk-icon { font-size: 1.1rem; position: relative; z-index: 1; }
+    .sk-name {
+      font-size: .85rem; color: var(--muted); font-weight: 600;
+      position: relative; z-index: 1; transition: color .3s;
     }
-    .sk-name { font-size: .82rem; color: var(--muted); font-weight: 600; }
     .skill-chip:hover .sk-name { color: var(--text); }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    @keyframes marqueeReverse {
+      from { transform: translateX(-50%); }
+      to   { transform: translateX(0); }
+    }
 
     /* ── CONTACT ── */
     #contact { text-align: center; }
@@ -377,9 +499,28 @@
       .nav-links { gap: 20px; }
       .nav-links a { font-size: .65rem; }
       section { padding: 80px 20px; }
-      #hero { grid-template-columns: 1fr; padding-top: 120px; gap: 40px; }
-      .hero-photo { order: -1; }
-      .hero-photo img { width: 160px; height: 190px; }
+      #hero { 
+        grid-template-columns: 1fr; 
+        padding-top: 80px; 
+        gap: 0;
+        padding-left: 0;
+        padding-right: 20px;
+      }
+      .hero-photo { 
+        order: -1; 
+        height: 50vh;
+        margin-left: 0;
+        margin-bottom: 40px;
+      }
+      .hero-left {
+        order: 1;
+        padding-left: 20px;
+      }
+      .hero-photo img { 
+        border-radius: 0;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
       #about .about-grid { grid-template-columns: 1fr; }
       .project-item { grid-template-columns: 28px 1fr; }
       .project-link { display: none; }
@@ -416,7 +557,7 @@
         I focus on code that actually does what it's supposed to do.
       </p>
       <div class="hero-btns">
-        <a href="cv.jpg" download class="btn-primary">Download my CV &nbsp;↓</a>
+        <a href="cv.jpg?v=2" download class="btn-primary">Download my CV &nbsp;↓</a>
         <a href="#work" class="btn-outline">View my work &nbsp;↓</a>
       </div>
 
@@ -440,8 +581,27 @@
       </div>
     </div>
 
-    <div class="hero-photo">
-      <img src="photo.jpg" alt="Jacob Joshua E. Edejer">
+    <div class="hero-right-col">
+      <div class="hero-photo">
+        <img src="photo-removebg-preview-removebg-preview.png" alt="Jacob Joshua E. Edejer">
+      </div>
+      <div class="social-follow">
+        <p class="social-label">FOLLOW ME</p>
+        <div class="social-icons">
+          <a href="https://www.facebook.com/jacobjoshua.edejer.1/" target="_blank" rel="noopener" class="social-icon" aria-label="Facebook">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://instagram.com/jacob_edejer" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="mailto:jacobjoshuae@gmail.com" class="social-icon" aria-label="Email">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </a>
+          <a href="tel:+639157280991" class="social-icon" aria-label="Phone">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -550,22 +710,58 @@
   <!-- SKILLS -->
   <section id="skills">
     <p class="sec-label reveal">/ capabilities</p>
-    <h2 class="sec-title reveal">Tools &<br>Technologies.</h2>
-    <div class="skills-grid reveal">
-      <div class="skill-chip"><span class="sk-cat">Language</span><span class="sk-name">PHP</span></div>
-      <div class="skill-chip"><span class="sk-cat">Language</span><span class="sk-name">JavaScript</span></div>
-      <div class="skill-chip"><span class="sk-cat">Language</span><span class="sk-name">HTML & CSS</span></div>
-      <div class="skill-chip"><span class="sk-cat">Language</span><span class="sk-name">SQL</span></div>
-      <div class="skill-chip"><span class="sk-cat">Database</span><span class="sk-name">MySQL</span></div>
-      <div class="skill-chip"><span class="sk-cat">Database</span><span class="sk-name">phpMyAdmin</span></div>
-      <div class="skill-chip"><span class="sk-cat">Backend</span><span class="sk-name">MySQLi</span></div>
-      <div class="skill-chip"><span class="sk-cat">Backend</span><span class="sk-name">Session Auth</span></div>
-      <div class="skill-chip"><span class="sk-cat">Tools</span><span class="sk-name">Git & GitHub</span></div>
-      <div class="skill-chip"><span class="sk-cat">Tools</span><span class="sk-name">VS Code / Kiro</span></div>
-      <div class="skill-chip"><span class="sk-cat">Deploy</span><span class="sk-name">Hostinger</span></div>
-      <div class="skill-chip"><span class="sk-cat">Deploy</span><span class="sk-name">Vercel</span></div>
-    </div>
+    <h2 class="sec-title reveal">The tools behind<br><span class="dim">the work.</span></h2>
   </section>
+
+  <!-- Marquee outside section so it goes full width -->
+  <div class="marquee-wrap reveal">
+    <!-- Row 1 — left to right -->
+    <div class="marquee-row">
+      <div class="marquee-track">
+        <div class="skill-chip"><span class="sk-icon"><svg width="22" height="22" viewBox="0 0 40 40" fill="none"><ellipse cx="20" cy="20" rx="19" ry="12" fill="#8892BF"/><text x="8.5" y="24" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">php</text></svg></span><span class="sk-name">PHP</span></div>
+        <div class="skill-chip"><span class="sk-icon"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" width="22" height="22" alt="JavaScript"></span><span class="sk-name">JavaScript</span></div>
+        <div class="skill-chip"><span class="sk-icon"><img src="https://cdn.simpleicons.org/html5/E34F26" width="22" height="22" alt="HTML5"></span><span class="sk-name">HTML & CSS</span></div>
+        <div class="skill-chip"><span class="sk-icon"><img src="https://cdn.simpleicons.org/mysql/4479A1" width="22" height="22" alt="MySQL"></span><span class="sk-name">MySQL</span></div>
+        <div class="skill-chip"><span class="sk-icon"><svg width="22" height="22" viewBox="0 0 100 50" fill="none"><g transform="scale(1.1)"><path d="M35 12 L45 2 L55 12 L45 22 Z" fill="#E0E0E0"/><path d="M45 2 L55 12 L65 2 Z" fill="#C0C0C0"/><path d="M55 12 L65 2 L75 12 L65 22 Z" fill="#D0D0D0"/><text x="3" y="38" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#5B6C8F">php</text><text x="28" y="38" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#F7A623">My</text><text x="48" y="38" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#F7A623">Admin</text></g></svg></span><span class="sk-name">phpMyAdmin</span></div>
+        <div class="skill-chip"><span class="sk-icon"><img src="https://cdn.simpleicons.org/github/ffffff" width="22" height="22" alt="GitHub"></span><span class="sk-name">GitHub</span></div>
+        <div class="skill-chip"><span class="sk-icon"><img src="https://cdn.simpleicons.org/git/F05032" width="22" height="22" alt="Git"></span><span class="sk-name">Git</span></div>
+        <div class="skill-chip"><span class="sk-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="#1572B6"><path d="m3 2 1.578 17.834L12 22l7.468-2.165L21 2zm13.3 14.722l-4.293 1.204H12l-4.297-1.204-.297-3.167h2.108l.15 1.526 2.335.639 2.34-.64.245-3.05h-7.27l-.187-2.006h7.64l.174-2.006H6.924l-.176-2.006h10.506z"/></svg></span><span class="sk-name">CSS3</span></div>
+        <!-- duplicate for seamless loop -->
+        <div class="skill-chip"><span class="sk-icon"><svg width="22" height="22" viewBox="0 0 40 40" fill="none"><ellipse cx="20" cy="20" rx="19" ry="12" fill="#8892BF"/><text x="8.5" y="24" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">php</text></svg></span><span class="sk-name">PHP</span></div>
+        <div class="skill-chip"><span class="sk-icon"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" width="22" height="22" alt="JavaScript"></span><span class="sk-name">JavaScript</span></div>
+        <div class="skill-chip"><span class="sk-icon"><img src="https://cdn.simpleicons.org/html5/E34F26" width="22" height="22" alt="HTML5"></span><span class="sk-name">HTML & CSS</span></div>
+        <div class="skill-chip"><span class="sk-icon"><img src="https://cdn.simpleicons.org/mysql/4479A1" width="22" height="22" alt="MySQL"></span><span class="sk-name">MySQL</span></div>
+        <div class="skill-chip"><span class="sk-icon"><svg width="22" height="22" viewBox="0 0 100 50" fill="none"><g transform="scale(1.1)"><path d="M35 12 L45 2 L55 12 L45 22 Z" fill="#E0E0E0"/><path d="M45 2 L55 12 L65 2 Z" fill="#C0C0C0"/><path d="M55 12 L65 2 L75 12 L65 22 Z" fill="#D0D0D0"/><text x="3" y="38" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#5B6C8F">php</text><text x="28" y="38" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#F7A623">My</text><text x="48" y="38" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#F7A623">Admin</text></g></svg></span><span class="sk-name">phpMyAdmin</span></div>
+        <div class="skill-chip"><span class="sk-icon"><img src="https://cdn.simpleicons.org/github/ffffff" width="22" height="22" alt="GitHub"></span><span class="sk-name">GitHub</span></div>
+        <div class="skill-chip"><span class="sk-icon"><img src="https://cdn.simpleicons.org/git/F05032" width="22" height="22" alt="Git"></span><span class="sk-name">Git</span></div>
+        <div class="skill-chip"><span class="sk-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="#1572B6"><path d="m3 2 1.578 17.834L12 22l7.468-2.165L21 2zm13.3 14.722l-4.293 1.204H12l-4.297-1.204-.297-3.167h2.108l.15 1.526 2.335.639 2.34-.64.245-3.05h-7.27l-.187-2.006h7.64l.174-2.006H6.924l-.176-2.006h10.506z"/></svg></span><span class="sk-name">CSS3</span></div>
+      </div>
+    </div>
+    <!-- Row 2 — right to left -->
+    <div class="marquee-row">
+      <div class="marquee-track marquee-track-reverse">
+        <div class="skill-chip"><span class="sk-icon"><img src="https://cdn.simpleicons.org/vercel/ffffff" width="22" height="22" alt="Vercel"></span><span class="sk-name">Vercel</span></div>
+        <div class="skill-chip"><span class="sk-icon"><img src="https://cdn.simpleicons.org/hostinger/673DE6" width="22" height="22" alt="Hostinger"></span><span class="sk-name">Hostinger</span></div>
+        <div class="skill-chip"><span class="sk-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="#007ACC"><path d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .326 8.74L3.899 12 .326 15.26a1 1 0 0 0 .001 1.479L1.65 17.94a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 20.06V3.939a1.5 1.5 0 0 0-.85-1.352zm-5.146 14.861L10.826 12l7.178-5.448v10.896z"/></svg></span><span class="sk-name">VS Code</span></div>
+        <div class="skill-chip"><span class="sk-icon"><svg width="22" height="22" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="7" fill="url(#kiro-grad)"/><defs><linearGradient id="kiro-grad" x1="0" y1="0" x2="32" y2="32"><stop offset="0%" stop-color="#A78BFA"/><stop offset="100%" stop-color="#7C3AED"/></linearGradient></defs><path d="M16 8c-3.5 0-6 2.5-6 5.5v4c0 1 0 2 1 2.5 0 0-1 1 0 2 0 0-1 1.5 1 2.5M16 8c3.5 0 6 2.5 6 5.5v4c0 1 0 2-1 2.5 0 0 1 1 0 2 0 0 1 1.5-1 2.5" stroke="white" stroke-width="2" stroke-linecap="round" fill="white" opacity="0.95"/><ellipse cx="13" cy="15" rx="1.5" ry="2" fill="#7C3AED"/><ellipse cx="19" cy="15" rx="1.5" ry="2" fill="#7C3AED"/><path d="M13 18c0-1.5 1.3-2 3-2s3 .5 3 2" stroke="#7C3AED" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg></span><span class="sk-name">Kiro AI</span></div>
+        <div class="skill-chip"><span class="sk-icon"><img src="https://cdn.simpleicons.org/digitalocean/0080FF" width="22" height="22" alt="Cloud"></span><span class="sk-name">Cloud Deploy</span></div>
+        <div class="skill-chip"><span class="sk-icon"><img src="https://cdn.simpleicons.org/sqlite/003B57" width="22" height="22" alt="SQL"></span><span class="sk-name">SQL</span></div>
+        <div class="skill-chip"><span class="sk-icon"><img src="https://cdn.simpleicons.org/bootstrap/7952B3" width="22" height="22" alt="Bootstrap"></span><span class="sk-name">Bootstrap</span></div>
+        <div class="skill-chip"><span class="sk-icon"><img src="https://cdn.simpleicons.org/fontawesome/528DD7" width="22" height="22" alt="Font Awesome"></span><span class="sk-name">Font Awesome</span></div>
+        <div class="skill-chip"><span class="sk-icon"><img src="https://cdn.simpleicons.org/googlechrome/4285F4" width="22" height="22" alt="Chrome"></span><span class="sk-name">Chrome DevTools</span></div>
+        <!-- duplicate for seamless loop -->
+        <div class="skill-chip"><span class="sk-icon"><img src="https://cdn.simpleicons.org/vercel/ffffff" width="22" height="22" alt="Vercel"></span><span class="sk-name">Vercel</span></div>
+        <div class="skill-chip"><span class="sk-icon"><img src="https://cdn.simpleicons.org/hostinger/673DE6" width="22" height="22" alt="Hostinger"></span><span class="sk-name">Hostinger</span></div>
+        <div class="skill-chip"><span class="sk-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="#007ACC"><path d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .326 8.74L3.899 12 .326 15.26a1 1 0 0 0 .001 1.479L1.65 17.94a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 20.06V3.939a1.5 1.5 0 0 0-.85-1.352zm-5.146 14.861L10.826 12l7.178-5.448v10.896z"/></svg></span><span class="sk-name">VS Code</span></div>
+        <div class="skill-chip"><span class="sk-icon"><svg width="22" height="22" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="7" fill="url(#kiro-grad)"/><defs><linearGradient id="kiro-grad" x1="0" y1="0" x2="32" y2="32"><stop offset="0%" stop-color="#A78BFA"/><stop offset="100%" stop-color="#7C3AED"/></linearGradient></defs><path d="M16 8c-3.5 0-6 2.5-6 5.5v4c0 1 0 2 1 2.5 0 0-1 1 0 2 0 0-1 1.5 1 2.5M16 8c3.5 0 6 2.5 6 5.5v4c0 1 0 2-1 2.5 0 0 1 1 0 2 0 0 1 1.5-1 2.5" stroke="white" stroke-width="2" stroke-linecap="round" fill="white" opacity="0.95"/><ellipse cx="13" cy="15" rx="1.5" ry="2" fill="#7C3AED"/><ellipse cx="19" cy="15" rx="1.5" ry="2" fill="#7C3AED"/><path d="M13 18c0-1.5 1.3-2 3-2s3 .5 3 2" stroke="#7C3AED" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg></span><span class="sk-name">Kiro AI</span></div>
+        <div class="skill-chip"><span class="sk-icon"><img src="https://cdn.simpleicons.org/digitalocean/0080FF" width="22" height="22" alt="Cloud"></span><span class="sk-name">Cloud Deploy</span></div>
+        <div class="skill-chip"><span class="sk-icon"><img src="https://cdn.simpleicons.org/sqlite/003B57" width="22" height="22" alt="SQL"></span><span class="sk-name">SQL</span></div>
+        <div class="skill-chip"><span class="sk-icon"><img src="https://cdn.simpleicons.org/bootstrap/7952B3" width="22" height="22" alt="Bootstrap"></span><span class="sk-name">Bootstrap</span></div>
+        <div class="skill-chip"><span class="sk-icon"><img src="https://cdn.simpleicons.org/fontawesome/528DD7" width="22" height="22" alt="Font Awesome"></span><span class="sk-name">Font Awesome</span></div>
+        <div class="skill-chip"><span class="sk-icon"><img src="https://cdn.simpleicons.org/googlechrome/4285F4" width="22" height="22" alt="Chrome"></span><span class="sk-name">Chrome DevTools</span></div>
+      </div>
+    </div>
+  </div>
 
   <!-- CONTACT -->
   <section id="contact">
