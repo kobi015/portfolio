@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jacob Joshua E. Edejer</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0f0f0f;
+      --bg2:     #161616;
+      --border:  #222;
+      --text:    #e8e8e8;
+      --muted:   #666;
+      --accent:  #e8e8e8;
+      --gold:    #c9a84c;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(15,15,15,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand {
+      font-size: .88rem; font-weight: 800; letter-spacing: 1px;
+      color: var(--text);
+    }
+    .nav-links {
+      display: flex; gap: 32px; list-style: none;
+    }
+    .nav-links a {
+      font-size: .78rem; color: var(--muted); letter-spacing: .5px;
+      transition: color .2s; text-transform: uppercase;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── Sections ── */
+    section { padding: 120px 48px; max-width: 860px; margin: 0 auto; }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding-top: 140px;
+    }
+    .hero-tag {
+      font-size: .78rem; color: var(--muted); letter-spacing: 1.5px;
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .hero-name {
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 24px;
+    }
+    .hero-name span { color: var(--gold); }
+    .hero-bio {
+      font-size: 1.05rem; color: var(--muted);
+      max-width: 520px; line-height: 1.8;
+      margin-bottom: 36px;
+    }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: .85rem; font-weight: 700;
+      border: 1.5px solid var(--border);
+      padding: 12px 24px; border-radius: 6px;
+      transition: all .2s; color: var(--text);
+    }
+    .hero-cta:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── Stats row ── */
+    .stats-row {
+      display: flex; gap: 48px; margin-top: 64px;
+      padding-top: 48px; border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .stat-item .num {
+      font-size: 2rem; font-weight: 900; color: var(--text);
+      display: block; line-height: 1;
+    }
+    .stat-item .lbl {
+      font-size: .75rem; color: var(--muted); margin-top: 4px;
+      letter-spacing: .5px;
+    }
+
+    /* ── Section label ── */
+    .sec-label {
+      font-size: .72rem; color: var(--muted); letter-spacing: 2px;
+      text-transform: uppercase; margin-bottom: 10px;
+    }
+    .sec-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800; letter-spacing: -1px;
+      margin-bottom: 48px; line-height: 1.1;
+    }
+
+    /* ── About ── */
+    #about .about-text {
+      font-size: 1rem; color: var(--muted);
+      max-width: 600px; line-height: 1.9;
+    }
+    #about .about-text p + p { margin-top: 16px; }
+
+    /* ── Projects ── */
+    .projects-list { display: flex; flex-direction: column; gap: 0; }
+    .project-item {
+      display: flex; align-items: flex-start;
+      gap: 24px; padding: 32px 0;
+      border-bottom: 1px solid var(--border);
+      transition: background .2s;
+    }
+    .project-item:first-child { border-top: 1px solid var(--border); }
+    .project-num {
+      font-size: .72rem; color: var(--muted);
+      font-weight: 700; min-width: 28px; padding-top: 4px;
+      letter-spacing: 1px;
+    }
+    .project-body { flex: 1; }
+    .project-name {
+      font-size: 1.05rem; font-weight: 800;
+      color: var(--text); margin-bottom: 6px;
+    }
+    .project-desc {
+      font-size: .85rem; color: var(--muted);
+      line-height: 1.7; margin-bottom: 12px;
+      max-width: 520px;
+    }
+    .project-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tag {
+      font-size: .68rem; color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 3px 10px; border-radius: 20px;
+      letter-spacing: .4px;
+    }
+    .project-link {
+      font-size: .78rem; color: var(--muted);
+      display: flex; align-items: center; gap: 5px;
+      margin-left: auto; align-self: center;
+      white-space: nowrap; transition: color .2s;
+      flex-shrink: 0;
+    }
+    .project-link:hover { color: var(--gold); }
+
+    /* ── Skills ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+    }
+    .skill-chip {
+      border: 1px solid var(--border);
+      border-radius: 8px; padding: 14px 16px;
+      font-size: .82rem; color: var(--muted);
+      transition: all .2s;
+    }
+    .skill-chip:hover { border-color: var(--gold); color: var(--text); }
+    .skill-chip .sk-cat {
+      font-size: .62rem; color: #444;
+      text-transform: uppercase; letter-spacing: 1px;
+      margin-bottom: 4px; display: block;
+    }
+
+    /* ── Contact ── */
+    #contact { text-align: center; }
+    #contact .sec-title { margin-bottom: 16px; }
+    #contact .contact-sub {
+      font-size: .95rem; color: var(--muted);
+      margin-bottom: 36px; line-height: 1.7;
+    }
+    .contact-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: .88rem; font-weight: 700;
+      background: var(--text); color: var(--bg);
+      padding: 14px 32px; border-radius: 6px;
+      transition: all .2s;
+    }
+    .contact-btn:hover { background: var(--gold); color: var(--bg); }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 100%;
+    }
+    footer .foot-name { font-size: .78rem; color: var(--muted); font-weight: 700; }
+    footer .foot-copy { font-size: .72rem; color: #333; }
+
+    /* ── Mobile ── */
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .nav-links { gap: 20px; }
+      section { padding: 80px 20px; }
+      #hero { padding-top: 110px; }
+      footer { padding: 24px 20px; flex-direction: column; gap: 8px; text-align: center; }
+      .stats-row { gap: 28px; }
+      .project-item { flex-wrap: wrap; }
+      .project-link { margin-left: 52px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-brand">DevJacob.</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <p class="hero-tag">Computer Science Student &nbsp;·&nbsp; Web Developer</p>
+    <h1 class="hero-name">I'm Jacob.<br><span>I build things</span><br>that work.</h1>
+    <p class="hero-bio">
+      I develop practical web systems with clean logic, thoughtful design,
+      and real-world purpose — from quiz platforms to attendance trackers —
+      from Zambales, Philippines.
+    </p>
+    <a href="cv.jpg" download class="hero-cta">
+      Download my CV &nbsp;↓
+    </a>
+
+    <div class="stats-row">
+      <div class="stat-item">
+        <span class="num">2023</span>
+        <span class="lbl">Started computer science</span>
+      </div>
+      <div class="stat-item">
+        <span class="num">03</span>
+        <span class="lbl">Live web systems</span>
+      </div>
+      <div class="stat-item">
+        <span class="num">20+</span>
+        <span class="lbl">Tools and technologies</span>
+      </div>
+      <div class="stat-item">
+        <span class="num">∞</span>
+        <span class="lbl">Things left to learn</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="sec-label">/ my story</p>
+    <h2 class="sec-title">Building systems<br>one project at a time.</h2>
+    <div class="about-text">
+      <p>
+        I'm currently pursuing a Bachelor of Science in Computer Science at
+        President Ramon Magsaysay State University, Sta. Cruz Campus. I build
+        web systems that solve real problems — from student quiz platforms to
+        attendance tracking tools used by actual schools and communities.
+      </p>
+      <p>
+        I focus on the full picture: database design, backend logic, user
+        experience, and deployment. I care about systems that feel dependable,
+        interfaces that feel clear, and code that actually does what it's
+        supposed to do.
+      </p>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <p class="sec-label">/ selected work</p>
+    <h2 class="sec-title">Projects.<br><span style="font-size:.55em;font-weight:400;color:var(--muted);letter-spacing:0">Real systems built for school and community use.</span></h2>
+
+    <div class="projects-list">
+
+      <div class="project-item">
+        <span class="project-num">01</span>
+        <div class="project-body">
+          <div class="project-name">SyntaxQuest: Quiz-Based Programming Syntax Website</div>
+          <p class="project-desc">
+            A gamified quiz platform for enhancing programming syntax knowledge
+            among BSCS students. Features XP, ranks, badges, streak multipliers,
+            and difficulty unlocking based on year level and performance.
+          </p>
+          <div class="project-tags">
+            <span class="tag">Web app</span>
+            <span class="tag">Thesis</span>
+            <span class="tag">PHP</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">JavaScript</span>
+          </div>
+        </div>
+        <a href="https://syntaxquest.xo.je/" target="_blank" rel="noopener noreferrer" class="project-link">View website &nbsp;↗</a>
+      </div>
+
+      <div class="project-item">
+        <span class="project-num">02</span>
+        <div class="project-body">
+          <div class="project-name">DMCMES Smart School Attendance System</div>
+          <p class="project-desc">
+            A practical attendance experience designed for faster daily school
+            tracking, built for use in an actual school environment.
+          </p>
+          <div class="project-tags">
+            <span class="tag">Web app</span>
+            <span class="tag">School</span>
+          </div>
+        </div>
+        <a href="https://smartattendacedmcmes.freehosting.dev/?i=1" target="_blank" rel="noopener noreferrer" class="project-link">View website &nbsp;↗</a>
+      </div>
+
+      <div class="project-item">
+        <span class="project-num">03</span>
+        <div class="project-body">
+          <div class="project-name">Gather Church Community Platform</div>
+          <p class="project-desc">
+            A church attendance platform for welcoming members and keeping
+            the community connected through a simple and accessible web interface.
+          </p>
+          <div class="project-tags">
+            <span class="tag">Web app</span>
+            <span class="tag">Church</span>
+          </div>
+        </div>
+        <a href="https://gatherpeople.freehosting.dev/login" target="_blank" rel="noopener noreferrer" class="project-link">View website &nbsp;↗</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="sec-label">/ capabilities</p>
+    <h2 class="sec-title">Tools &<br>Technologies.</h2>
+
+    <div class="skills-grid">
+      <div class="skill-chip"><span class="sk-cat">Language</span>PHP</div>
+      <div class="skill-chip"><span class="sk-cat">Language</span>JavaScript</div>
+      <div class="skill-chip"><span class="sk-cat">Language</span>HTML & CSS</div>
+      <div class="skill-chip"><span class="sk-cat">Language</span>SQL</div>
+      <div class="skill-chip"><span class="sk-cat">Database</span>MySQL</div>
+      <div class="skill-chip"><span class="sk-cat">Database</span>phpMyAdmin</div>
+      <div class="skill-chip"><span class="sk-cat">Backend</span>MySQLi</div>
+      <div class="skill-chip"><span class="sk-cat">Backend</span>Session Management</div>
+      <div class="skill-chip"><span class="sk-cat">Tools</span>Git & GitHub</div>
+      <div class="skill-chip"><span class="sk-cat">Tools</span>VS Code / Kiro</div>
+      <div class="skill-chip"><span class="sk-cat">Deploy</span>Hostinger</div>
+      <div class="skill-chip"><span class="sk-cat">Deploy</span>Vercel</div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="sec-label">/ start a conversation</p>
+    <h2 class="sec-title">Let's build<br>something useful.</h2>
+    <p class="contact-sub">
+      Have an idea, a question, or a problem worth solving?<br>
+      Send me a message.
+    </p>
+    <a href="mailto:jacobjoshuae@gmail.com" class="contact-btn">
+      Get in touch &nbsp;↗
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="foot-name">Jacob Joshua E. Edejer</span>
+    <span class="foot-copy">© 2026 · BSCS · PRMSU Sta. Cruz</span>
+  </footer>
+
+</body>
+</html>
